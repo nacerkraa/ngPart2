@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -9,5 +9,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './about.component.scss'
 })
 export class AboutComponent {
+  constructor(private router: ActivatedRoute) {}
 
+  ngOnInit() {
+    this.router.queryParams.subscribe((params) => {
+      const projectid = params['projectId'];
+      console.log(projectid);
+    })
+  }
 }

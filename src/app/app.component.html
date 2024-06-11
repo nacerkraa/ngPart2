@@ -1,37 +1,7 @@
-<form [formGroup]="userForm" (ngSubmit)="submitForm()" style="padding: 50px;">
-  <div>
-    <label for="name">Name: </label>
-    <input type="text" id="name" formControlName="name" placeholder="Enter Your Name" />
-  </div>
+<div>
+  <h1>Task List</h1>
+  @for (task of tasks; track $index) {
+    <app-task [i]="$index" [val]="task" (taskDeleted)="deleteTask(task)"></app-task>
+  }
+</div>
 
-  <div>
-    <label for="eamil">Email: </label>
-    <input type="email" id="email" formControlName="email" placeholder="Enter Your Email" />
-  </div>
-
-  <div formGroupName="adress">
-    <label for="street">Street: </label>
-    <input type="text" id="street" formControlName="street" placeholder="Enter Your Steet" />
-  </div>
-
-  <div formGroupName="adress">
-    <label for="city">City: </label>
-    <input type="text" id="city" formControlName="city" placeholder="Enter Your City" />
-  </div>
-
-  <div formArrayName="phoneNumber">
-    <div *ngFor="let phoneNum of phoneNumber.controls; let i = index">
-      <label for="phoneNumber">Phone Number: {{i + 1}}</label>
-      <input type="text" [formControlName]="i">
-      <button type="button" (click)="removePhoneNumber(i)">Remove</button>
-    </div>
-  </div>
-
-  <div>
-    <button type="button" (click)="addPhoneNumber()">Add Phone Number</button>
-  </div>
-
-  <div>
-    <button type="submit" [disabled]="!userForm.valid">Submit</button>
-  </div>
-</form>

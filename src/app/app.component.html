@@ -1,19 +1,37 @@
-<div>
-  <h1>User</h1>
-  <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
-    <div>
-      <label for="name">Name: </label>
-      <input type="text" id="name" name="name" [(ngModel)]="user.name" required />
-    </div>
+<form [formGroup]="userForm" (ngSubmit)="submitForm()" style="padding: 50px;">
+  <div>
+    <label for="name">Name: </label>
+    <input type="text" id="name" formControlName="name" placeholder="Enter Your Name" />
+  </div>
 
-    <div>
-      <label for="email">Email: </label>
-      <input type="email" id="email" name="email" [(ngModel)]="user.email" required />
-    </div>
+  <div>
+    <label for="eamil">Email: </label>
+    <input type="email" id="email" formControlName="email" placeholder="Enter Your Email" />
+  </div>
 
-    <div>
-      <button type="submit" [disabled]="userForm.invalid || !validateEmail()">Submit: </button>
-    </div>
+  <div formGroupName="adress">
+    <label for="street">Street: </label>
+    <input type="text" id="street" formControlName="street" placeholder="Enter Your Steet" />
+  </div>
 
-  </form>
-</div>
+  <div formGroupName="adress">
+    <label for="city">City: </label>
+    <input type="text" id="city" formControlName="city" placeholder="Enter Your City" />
+  </div>
+
+  <div formArrayName="phoneNumber">
+    <div *ngFor="let phoneNum of phoneNumber.controls; let i = index">
+      <label for="phoneNumber">Phone Number: {{i + 1}}</label>
+      <input type="text" [formControlName]="i">
+      <button type="button" (click)="removePhoneNumber(i)">Remove</button>
+    </div>
+  </div>
+
+  <div>
+    <button type="button" (click)="addPhoneNumber()">Add Phone Number</button>
+  </div>
+
+  <div>
+    <button type="submit" [disabled]="!userForm.valid">Submit</button>
+  </div>
+</form>

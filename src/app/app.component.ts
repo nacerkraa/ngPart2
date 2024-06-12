@@ -1,27 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgFor } from '@angular/common';
-import { TaskComponent } from './componets/task/task.component';
+import { Router, RouterLink, RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 
-interface User {
-  name: string,
-  email: string
-}
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgFor, ReactiveFormsModule, TaskComponent],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 
 export class AppComponent {
-    tasks: string[] = ["Brech my teeth", "Playing Football", "Giong to the mosque"];
+  constructor(private router: Router){}
+  
+  navigateToNotes() {
+    this.router.navigate(['/notes']);
+  }
 
-    deleteTask(task: string) {
-      this.tasks = this.tasks.filter((t) => t !== task);
-    }
+  navigateToNote(id: number) {
+    this.router.navigate(['/notes', id]);
+  }  
 }
